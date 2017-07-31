@@ -59,6 +59,16 @@ class EthScrapping():
 		r = requests.get(url=apirequest)
 		return convert_dollar(r.json()["result"])
 
+	def get_all_useful_transactions(self, address):
+		transactions=self.get_all_transactions(address)
+		useful_transactions=[]
+		for trs in transactions:
+			useful_transactions.append([trs["from"],trs["to"], trs["value"], trs["block"]])
+		return useful_transactions
+
+	def transactions_to_csv(self, address, file_address):
+		transactions=pd.DataFrame(get_all_useful_transactions, columns=["From", "To", "Value", "Block"])
+		transactions.to_csv(file_address)
 
 
 if __name__ == '__main__':

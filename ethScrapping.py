@@ -66,6 +66,10 @@ if __name__ == '__main__':
 	if len(sys.argv) > 1:
 		apiKey=sys.argv[1]
 		scrapper=EthScrapping(apiKey)
-		print(scrapper.get_transactions("0xd24400ae8BfEBb18cA49Be86258a3C749cf46853"))
+		if len(sys.argv)>2:
+			address=sys.argv[2]
+		else:
+			address="0xd24400ae8BfEBb18cA49Be86258a3C749cf46853"
+		print(scrapper.get_transactions(address))
 	else:
 		print("Error. No API key given.")

@@ -27,7 +27,7 @@ class EthScrapping():
 		r = requests.get(url=apirequest)
 		res=r.json()["result"]
 		if (len(res)==10000):
-			res=res+get_all_transactions(address,res[9999]['blockNumber'],end)
+			res=res+self.get_all_transactions(address,res[9999]['blockNumber'],end)
 		return res
 
 	def get_investors(self, address):
@@ -63,11 +63,11 @@ class EthScrapping():
 		transactions=self.get_all_transactions(address)
 		useful_transactions=[]
 		for trs in transactions:
-			useful_transactions.append([trs["from"],trs["to"], trs["value"], trs["block"]])
+			useful_transactions.append([trs["from"],trs["to"], trs["value"], trs["blockNumber"]])
 		return useful_transactions
 
 	def transactions_to_csv(self, address, file_address):
-		transactions=pd.DataFrame(get_all_useful_transactions, columns=["From", "To", "Value", "Block"])
+		transactions=pd.DataFrame(self.get_all_useful_transactions(address), columns=["From", "To", "Value", "Block"])
 		transactions.to_csv(file_address)
 
 

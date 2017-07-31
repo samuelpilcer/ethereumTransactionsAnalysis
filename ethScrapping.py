@@ -46,8 +46,18 @@ class EthScrapping():
 		investors={}
 		for i in range(len(transactions)):
 			if transactions[i]["to"]==address:
-				investors[transactions[i]["from"]]=self.convert_dollar(transactions[i]["value"], self.rate)
+				if transactions[i]["from"] not in investors:
+					investors[transactions[i]["from"]]=self.convert_dollar(transactions[i]["value"], self.rate)
+				else:
+					investors[transactions[i]["from"]]=investors[transactions[i]["from"]]+self.convert_dollar(transactions[i]["value"], self.rate)
 		return investors
+
+	def investors_to_csv(self, address, file_address):
+		investors=self.get_investors_dollars(address)
+		investments=[]
+		for i in investors:
+			investments.append([i,investments[i]])
+		pd.DataFrame(investments, columns=["From", "Value"]).to_csv(file_address)
 
 	def get_balance(self, address):
 		apirequest="https://api.etherscan.io/api?module=account&action=balance&address="+address+"&tag=latest&apikey="+self.apikey

@@ -17,13 +17,13 @@ class EthScrapping():
 
 	#Limit 10.000
 	def get_transactions(self,address, start=0, end=99999999):
-		apirequest="http://api.etherscan.io/api?module=account&action=txlist&address="+address+"&startblock="+str(start)+"&endblock="+str(end)+"&sort=asc&apikey="+apikey
+		apirequest="http://api.etherscan.io/api?module=account&action=txlist&address="+address+"&startblock="+str(start)+"&endblock="+str(end)+"&sort=asc&apikey="+self.apikey
 		r = requests.get(url=apirequest)
 		return r.json()["result"]
 
 	#All transactions recorded
 	def get_all_transactions(self, address, start=0, end=99999999):
-		apirequest="http://api.etherscan.io/api?module=account&action=txlist&address="+address+"&startblock="+str(start)+"&endblock="+str(end)+"&sort=asc&apikey="+apikey
+		apirequest="http://api.etherscan.io/api?module=account&action=txlist&address="+address+"&startblock="+str(start)+"&endblock="+str(end)+"&sort=asc&apikey="+self.apikey
 		r = requests.get(url=apirequest)
 		res=r.json()["result"]
 		if (len(res)==10000):

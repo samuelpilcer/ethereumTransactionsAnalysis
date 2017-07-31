@@ -1,8 +1,7 @@
-import os
-os.path.append("..")
+import sys
+sys.path.append("..")
 from ethScrapping import EthScrapping
 import logging
-import sys
 
 logger = logging.getLogger(__name__)
 log_handler = logging.StreamHandler()
@@ -14,4 +13,6 @@ if len(sys.argv) > 1:
 	scrapper=EthScrapping(sys.argv[1])
 	address="0xbbc79794599b19274850492394004087cbf89710"
 	file_to_save="../Results/bancorInvestors.csv"
-	scrapper.transactions_to_csv(file_to_save)
+	logger.debug("Loading transactions...")
+	scrapper.transactions_to_csv(address, file_to_save)
+	scrapper.investors_to_csv(address, file_to_save)

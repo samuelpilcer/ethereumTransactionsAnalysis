@@ -1,5 +1,7 @@
 import requests
 import pandas as pd
+import os
+import sys
 import logging
 
 logger = logging.getLogger(__name__)
@@ -61,9 +63,9 @@ class EthScrapping():
 
 if __name__ == '__main__':
 
-    if len(sys.argv) > 1:
-        apiKey=sys.argv[1]
-        scrapper=EthScrapping(apiKey)
-		print scrapper.get_transactions("0xd24400ae8BfEBb18cA49Be86258a3C749cf46853")
-    else:
-    	print "Error. No API key given."
+	if len(sys.argv) > 1:
+		apiKey=sys.argv[1]
+		scrapper=EthScrapping(apiKey)
+		print(scrapper.get_transactions("0xd24400ae8BfEBb18cA49Be86258a3C749cf46853"))
+	else:
+		print("Error. No API key given.")

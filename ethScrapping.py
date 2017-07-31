@@ -70,6 +70,16 @@ class EthScrapping():
 		transactions=pd.DataFrame(self.get_all_useful_transactions(address), columns=["From", "To", "Value", "Block"])
 		transactions.to_csv(file_address)
 
+	def get_transaction_values(self, address):
+		transactions=self.get_all_useful_transactions(address)
+		transactions_values={}
+		for trs in transactions:
+			if (trs[0],trs[1]) in transactions_values:
+				transactions_values[(trs[0],trs[1])]=transactions_values[(trs[0],trs[1])]+trs[2]
+			else:
+				transactions_values[(trs[0],trs[1])]=trs[2]
+		return transactions_values
+
 
 if __name__ == '__main__':
 
